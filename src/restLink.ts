@@ -795,7 +795,7 @@ interface RequestContext {
 
   /** Exported variables fulfilled in this request, using @export(as:). They are stored keyed by node to support deeply nested structures with exports at multiple levels */
   exportVariablesByNode: Map<any, { [key: string]: any }>;
-
+  constants?: { [key: string]: any };
   endpoints: RestLink.Endpoints;
   customFetch: RestLink.CustomFetch;
   operationType: OperationTypeNode;
@@ -1304,6 +1304,7 @@ export class RestLink extends ApolloLink {
 
     const requestContext: RequestContext = {
       headers,
+      constants: context.constants,
       endpoints: this.endpoints,
       // Provide an empty map for this request's exports to be stuffed into
       exportVariablesByNode: new Map(),
